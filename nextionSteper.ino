@@ -1,6 +1,6 @@
 #include <AccelStepper.h>
 // #include <EasyNextionLibrary.h>
-#include "Nextion.h"
+#include "Nextion.h" //https://github.com/itead/ITEADLIB_Arduino_Nextion.git
 // Define the motor control pins (you might need to adjust these)
 #define motorStepPin 2
 #define motorDirPin 3
@@ -53,7 +53,6 @@ void b1PopCallback(void *ptr)
     number = atoi(buffer);
     btnReverse = number;
 }
-
 
 // Initialize the stepper motor object
 AccelStepper stepper(AccelStepper::FULL4WIRE, motorStepPin, motorDirPin);
