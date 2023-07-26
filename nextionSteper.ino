@@ -6,8 +6,8 @@
 #define motorDirPin 3
 bool btnForward, btnReverse = false;
 // Define the Nextion objects
-NexButton b0 = NexButton(0, 1, "btnForward");
-NexButton b1 = NexButton(0, 2, "btnReverse");
+NexButton b0 = NexButton(0, 1, "b0");
+NexButton b1 = NexButton(0, 2, "b1");
 
 /*
  * Declare a button object [page id:0,component id:1, component name: "b0"].
