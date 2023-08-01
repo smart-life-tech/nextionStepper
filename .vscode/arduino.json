@@ -1,4 +1,5 @@
 {
-    "board": "arduino:avr:uno",
-    "sketch": "nextionSteper.ino"
+    "board": "arduino:avr:mega",
+    "sketch": "easy\\easy.ino",
+    "configuration": "cpu=atmega2560"
 }
