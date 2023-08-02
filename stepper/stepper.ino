@@ -1,6 +1,6 @@
 // Pin numbers
-const int directionPin = 2;
-const int stepPin = 3;
+const int directionPin = 3;
+const int stepPin = 2;
 const int reversePin = 4;
 const int forwardPin = 5;
 
