@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:mega",
-    "sketch": "tests\\tests.ino",
+    "sketch": "easy\\easy.ino",
     "configuration": "cpu=atmega2560"
 }

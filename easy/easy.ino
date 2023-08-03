@@ -15,7 +15,7 @@ int btnForward, btnReverse = 0;
 char buffer[100] = {0};
 
 // Initialize the stepper motor object
-AccelStepper stepper(AccelStepper::FULL4WIRE, motorStepPin, motorDirPin);
+AccelStepper stepper(AccelStepper::DRIVER, motorStepPin, motorDirPin);
 
 // Define motor speed and acceleration
 const float maxSpeed = 4000.0; // Adjust this value based on your motor's capabilities
