@@ -1,8 +1,8 @@
 // Pin numbers
 const int directionPin = 3;
-const int stepPin = 2;
-const int reversePin = 4;
-const int forwardPin = 5;
+const int stepPin = 4;
+const int reversePin = 14;
+const int forwardPin = 15;
 
 // Variables to track button states and movement
 bool forwardButtonPressed = false;
@@ -21,6 +21,8 @@ void setup()
     pinMode(reversePin, INPUT_PULLUP);
     pinMode(directionPin, OUTPUT);
     pinMode(stepPin, OUTPUT);
+    pinMode(5,OUTPUT);
+    digitalWrite(5,HIGH);
     digitalWrite(directionPin, LOW);
     digitalWrite(stepPin, LOW);
 }
