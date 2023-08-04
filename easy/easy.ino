@@ -34,6 +34,7 @@ void setup()
     pinMode(motorEnablePin, OUTPUT);
     digitalWrite(motorEnablePin, HIGH);
     // pinMode(5, INPUT_PULLUP);
+    stepper.setMinPulseWidth(200);
 }
 
 void loop()
