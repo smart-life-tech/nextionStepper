@@ -62,6 +62,16 @@ void loop()
                 }
             }
             Serial.println("forward button pressed");
+            digitalWrite(motorStepPin, HIGH);
+            delayMicroseconds(500);
+            digitalWrite(motorStepPin, LOW);
+            delayMicroseconds(500);
+        }
+    }
+    if (left)
+    {
+        while (1)
+        {
             unsigned long currentMillis = millis();
             // Check the digital pin every 1 second
             if (currentMillis - previousMillis >= interval)
@@ -77,16 +87,6 @@ void loop()
                     break;
                 }
             }
-            digitalWrite(motorStepPin, HIGH);
-            delayMicroseconds(500);
-            digitalWrite(motorStepPin, LOW);
-            delayMicroseconds(500);
-        }
-    }
-    if (left)
-    {
-        while (1)
-        {
             Serial.println("forward button pressed");
             digitalWrite(motorStepPin, HIGH);
             delayMicroseconds(500);
