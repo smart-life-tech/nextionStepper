@@ -10,6 +10,8 @@ bool right, left = false;
 // Define motor speed and acceleration
 const float maxSpeed = 4000.0; // Adjust this value based on your motor's capabilities
 const float acceleration = 3000.0;
+unsigned long previousMillis = 0;
+const unsigned long interval = 1000; // 1 second interval
 void setup()
 {
     Serial.begin(9600);
@@ -42,19 +44,55 @@ void loop()
     }
     if (right)
     {
-        Serial.println("forward button pressed");
-        digitalWrite(motorStepPin, HIGH);
-        delayMicroseconds(500);
-        digitalWrite(motorStepPin, LOW);
-        delayMicroseconds(500);
+        while (1)
+        {
+            unsigned long currentMillis = millis();
+            // Check the digital pin every 1 second
+            if (currentMillis - previousMillis >= interval)
+            {
+                previousMillis = currentMillis;
+
+                // Check the state of the digital pin
+                right = myNex.readNumber("b0.val");
+                if (!right)
+                {
+                    Serial.println("Forward button not pressed");
+                    right = false;
+                    break;
+                }
+            }
+            Serial.println("forward button pressed");
+            unsigned long currentMillis = millis();
+            // Check the digital pin every 1 second
+            if (currentMillis - previousMillis >= interval)
+            {
+                previousMillis = currentMillis;
+
+                // Check the state of the digital pin
+                right = myNex.readNumber("b1.val");
+                if (!left)
+                {
+                    Serial.println("reverse button not pressed");
+                    left = false;
+                    break;
+                }
+            }
+            digitalWrite(motorStepPin, HIGH);
+            delayMicroseconds(500);
+            digitalWrite(motorStepPin, LOW);
+            delayMicroseconds(500);
+        }
     }
     if (left)
     {
-        Serial.println("forward button pressed");
-        digitalWrite(motorStepPin, HIGH);
-        delayMicroseconds(500);
-        digitalWrite(motorStepPin, LOW);
-        delayMicroseconds(500);
+        while (1)
+        {
+            Serial.println("forward button pressed");
+            digitalWrite(motorStepPin, HIGH);
+            delayMicroseconds(500);
+            digitalWrite(motorStepPin, LOW);
+            delayMicroseconds(500);
+        }
+        Serial.println("waiting for  button press");
     }
-    Serial.println("waiting for  button press");
 }
