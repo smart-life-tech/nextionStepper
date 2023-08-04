@@ -26,15 +26,19 @@ void loop()
     {
         right = true;
         digitalWrite(motorDirPin, HIGH);
-    }else{
-        right=false;
+    }
+    else
+    {
+        right = false;
     }
     if (btnReverse)
     {
         left = true;
         digitalWrite(motorDirPin, LOW);
-    }else{
-left=false;
+    }
+    else
+    {
+        left = false;
     }
     if (right)
     {
