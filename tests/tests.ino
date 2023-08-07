@@ -79,7 +79,7 @@ void loop()
                 previousMillis = currentMillis;
 
                 // Check the state of the digital pin
-                right = myNex.readNumber("b1.val");
+                left = myNex.readNumber("b1.val");
                 if (!left)
                 {
                     Serial.println("reverse button not pressed");
