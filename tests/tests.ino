@@ -20,79 +20,51 @@ void setup()
     pinMode(motorStepPin, OUTPUT);
 }
 
+bool moveForward = false;
+bool moveReverse = false;
+
 void loop()
 {
     btnForward = myNex.readNumber("b0.val");
     btnReverse = myNex.readNumber("b1.val");
+
     if (btnForward)
     {
-        right = true;
+        moveForward = true;
+        moveReverse = false;
         digitalWrite(motorDirPin, HIGH);
     }
-    else
+    else if (btnReverse)
     {
-        right = false;
-    }
-    if (btnReverse)
-    {
-        left = true;
+        moveReverse = true;
+        moveForward = false;
         digitalWrite(motorDirPin, LOW);
     }
-    else
-    {
-        left = false;
-    }
-    if (right)
-    {
-        while (1)
-        {
-            unsigned long currentMillis = millis();
-            // Check the digital pin every 1 second
-            if (currentMillis - previousMillis >= interval)
-            {
-                previousMillis = currentMillis;
 
-                // Check the state of the digital pin
-                right = myNex.readNumber("b0.val");
-                if (!right)
-                {
-                    Serial.println("Forward button not pressed");
-                    right = false;
-                    break;
-                }
-            }
-            Serial.println("forward button pressed");
+    if (moveForward || moveReverse)
+    {
+        if (moveForward)
+        {
             digitalWrite(motorStepPin, HIGH);
             delayMicroseconds(500);
             digitalWrite(motorStepPin, LOW);
             delayMicroseconds(500);
         }
-    }
-    if (left)
-    {
-        while (1)
-        {
-            unsigned long currentMillis = millis();
-            // Check the digital pin every 1 second
-            if (currentMillis - previousMillis >= interval)
-            {
-                previousMillis = currentMillis;
 
-                // Check the state of the digital pin
-                left = myNex.readNumber("b1.val");
-                if (!left)
-                {
-                    Serial.println("reverse button not pressed");
-                    left = false;
-                    break;
-                }
-            }
-            Serial.println("forward button pressed");
+        if (moveReverse)
+        {
+            // Code to move the motor in reverse
             digitalWrite(motorStepPin, HIGH);
             delayMicroseconds(500);
             digitalWrite(motorStepPin, LOW);
             delayMicroseconds(500);
         }
-        Serial.println("waiting for  button press");
+        unsigned long currentMillis = millis();
+
+        if (currentMillis - previousMillis >= interval)
+        {
+            previousMillis = currentMillis;
+            Serial.println("Button pressed");
+        }
     }
 }
