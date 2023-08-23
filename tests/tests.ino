@@ -12,6 +12,9 @@ const float maxSpeed = 4000.0; // Adjust this value based on your motor's capabi
 const float acceleration = 3000.0;
 unsigned long previousMillis = 0;
 const unsigned long interval = 1000; // 1 second interval
+unsigned long counts=0;
+int moveForward = false;
+int moveReverse = false;
 void setup()
 {
     Serial.begin(9600);
@@ -20,51 +23,47 @@ void setup()
     pinMode(motorStepPin, OUTPUT);
 }
 
-bool moveForward = false;
-bool moveReverse = false;
+
 
 void loop()
 {
     btnForward = myNex.readNumber("b0.val");
     btnReverse = myNex.readNumber("b1.val");
-
+    Serial.println(String(btnForward) + String(btnReverse));
     if (btnForward)
     {
         moveForward = true;
         moveReverse = false;
         digitalWrite(motorDirPin, HIGH);
     }
-    else if (btnReverse)
+    else
+        moveForward == false;
+    if (btnReverse)
     {
         moveReverse = true;
         moveForward = false;
         digitalWrite(motorDirPin, LOW);
     }
+    else
+        moveReverse == false;
 
-    if (moveForward || moveReverse)
+    while (moveForward)
     {
-        if (moveForward)
-        {
-            digitalWrite(motorStepPin, HIGH);
-            delayMicroseconds(500);
-            digitalWrite(motorStepPin, LOW);
-            delayMicroseconds(500);
-        }
+        counts++;
+        digitalWrite(motorStepPin, HIGH);
+        delayMicroseconds(500);
+        digitalWrite(motorStepPin, LOW);
+        delayMicroseconds(500);
+        if(counts>1000)break;
+    }
 
-        if (moveReverse)
-        {
-            // Code to move the motor in reverse
-            digitalWrite(motorStepPin, HIGH);
-            delayMicroseconds(500);
-            digitalWrite(motorStepPin, LOW);
-            delayMicroseconds(500);
-        }
-        unsigned long currentMillis = millis();
-
-        if (currentMillis - previousMillis >= interval)
-        {
-            previousMillis = currentMillis;
-            Serial.println("Button pressed");
-        }
+    while (moveReverse)
+    {counts++;
+        // Code to move the motor in reverse
+        digitalWrite(motorStepPin, HIGH);
+        delayMicroseconds(500);
+        digitalWrite(motorStepPin, LOW);
+        delayMicroseconds(500);
+         if(counts>1000)break;
     }
 }
