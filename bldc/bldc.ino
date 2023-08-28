@@ -21,14 +21,18 @@ void setup()
     pinMode(fgPin, INPUT);
 
     myNex.begin(9600); // Begin the object with a baud rate of 9600
+    Serial.begin(9600);
 }
 
 void loop()
 {
+    delay(600);
     int btnForward = myNex.readNumber("b0.val");
     int btnReverse = myNex.readNumber("b1.val");
+    Serial.println(String(btnForward) + String(btnReverse));
     pwmValue = 255; // myNex.readNumber("pwmSlider.val");
-
+    int feedback = digitalRead(fgPin);
+    updateStatus(feedback);
     if (btnForward)
     {
         moveForward = true;
@@ -58,10 +62,16 @@ void loop()
     // Handle braking
     if (moveForward || moveReverse)
     {
-        digitalWrite(brakePin, LOW); // Release brake
+        digitalWrite(brakePin, HIGH); // Release brake
     }
     else
     {
-        digitalWrite(brakePin, HIGH); // Apply brake
+        digitalWrite(brakePin, LOW); // Apply brake
     }
+}
+void updateStatus(int feedback)
+{
+    char statusMsg[50];
+    snprintf(statusMsg, sizeof(statusMsg), "Feedback: %s", feedback ? "Active" : "Inactive");
+    Serial.println(statusMsg);
 }
