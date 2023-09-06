@@ -19,7 +19,7 @@ void setup()
     pinMode(dir, OUTPUT);
     pinMode(pwmPin, OUTPUT);
     pinMode(fgPin, INPUT);
-
+    analogWrite(pwmPin, 0);
     myNex.begin(9600); // Begin the object with a baud rate of 9600
     Serial.begin(9600);
 }
@@ -56,17 +56,18 @@ void loop()
         moveReverse = false;
     }
 
-    // Update motor speed
-    analogWrite(pwmPin, pwmValue);
-
     // Handle braking
     if (moveForward || moveReverse)
     {
         digitalWrite(brakePin, HIGH); // Release brake
+        // Update motor speed
+        analogWrite(pwmPin, pwmValue);
     }
     else
     {
         digitalWrite(brakePin, LOW); // Apply brake
+        // Update motor speed
+        analogWrite(pwmPin, 0);
     }
 }
 void updateStatus(int feedback)
