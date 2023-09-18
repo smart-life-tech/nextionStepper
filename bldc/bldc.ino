@@ -68,6 +68,7 @@ void loop()
         digitalWrite(brakePin, LOW); // Apply brake
         // Update motor speed
         analogWrite(pwmPin, 0);
+        digitalWrite(pwmPin,LOW);
     }
 }
 void updateStatus(int feedback)
